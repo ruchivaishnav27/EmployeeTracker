@@ -1,21 +1,10 @@
 DROP TABLE IF EXISTS employees;
-DROP TABLE IF EXISTS department;
+DROP TABLE IF EXISTS departments;
 DROP TABLE IF EXISTS roles;
 
-CREATE TABLE department (
+CREATE TABLE departments (
   id INTEGER AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(30) NOT NULL,
-  description TEXT
-);
-
-CREATE TABLE employees (
-  id INTEGER AUTO_INCREMENT PRIMARY KEY,
-  first_name VARCHAR(30) NOT NULL,
-  last_name VARCHAR(30) NOT NULL,
-  roles_id INTEGER,
-  manager_id INTEGER,
-  industry_connected BOOLEAN NOT NULL,
-  CONSTRAINT fk_party FOREIGN KEY (party_id) REFERENCES parties(id) ON DELETE SET NULL
+  name VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE roles (
@@ -24,4 +13,13 @@ CREATE TABLE roles (
   salary DECIMAL,
   department_id INTEGER,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE employees (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
+  roles_id INTEGER,
+  manager_id INTEGER,
+  CONSTRAINT fk_roles FOREIGN KEY (roles_id) REFERENCES roles(id) ON DELETE SET NULL
 );

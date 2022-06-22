@@ -5,7 +5,7 @@ const inputCheck = require('../../utils/inputCheck');
 
 // Get all roles alphabetized by last name
 router.get('/roles', (req, res) => {
-  const sql = `SELECT * FROM roles ORDER BY last_name`;
+  const sql = `SELECT * FROM roles ORDER BY title`;
 
   db.query(sql, (err, rows) => {
     if (err) {
@@ -19,7 +19,7 @@ router.get('/roles', (req, res) => {
   });
 });
 
-// Get single roles
+// Get a single role
 router.get('/roles/:id', (req, res) => {
   const sql = `SELECT * FROM roles WHERE id = ?`;
   const params = [req.params.id];
@@ -36,17 +36,17 @@ router.get('/roles/:id', (req, res) => {
   });
 });
 
-// Create a voter
+// Create a role
 router.post('/roles', ({ body }, res) => {
   // Data validation
-  const errors = inputCheck(body, 'first_name', 'last_name', 'email');
+  const errors = inputCheck(body, 'title', 'salary', 'department_id');
   if (errors) {
     res.status(400).json({ error: errors });
     return;
   }
 
-  const sql = `INSERT INTO roles (first_name, last_name, email) VALUES (?,?,?)`;
-  const params = [body.first_name, body.last_name, body.email];
+  const sql = `INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)`;
+  const params = [body.title, body.salary, body.department_id];
 
   db.query(sql, params, (err, result) => {
     if (err) {
@@ -69,15 +69,15 @@ router.put('/roles/:id', (req, res) => {
     return;
   }
 
-  const sql = `UPDATE roles SET email = ? WHERE id = ?`;
-  const params = [req.body.email, req.params.id];
+  const sql = `UPDATE roles SET department_id = ? WHERE id = ?`;
+  const params = [req.body.department_id, req.params.id];
 
   db.query(sql, params, (err, result) => {
     if (err) {
       res.status(400).json({ error: err.message });
     } else if (!result.affectedRows) {
       res.json({
-        message: 'roles not found'
+        message: 'Role not found'
       });
     } else {
       res.json({
@@ -98,7 +98,7 @@ router.delete('/roles/:id', (req, res) => {
       res.status(400).json({ error: res.message });
     } else if (!result.affectedRows) {
       res.json({
-        message: 'roles not found'
+        message: 'Role not found'
       });
     } else {
       res.json({

@@ -51,19 +51,19 @@ router.post('/employees', ({ body }, res) => {
     body,
     'first_name',
     'last_name',
-    'industry_connected'
+    'manager_id'
   );
   if (errors) {
     res.status(400).json({ error: errors });
     return;
   }
 
-  const sql = `INSERT INTO employees (first_name, last_name, industry_connected, party_id) VALUES (?,?,?,?)`;
+  const sql = `INSERT INTO employees (first_name, last_name, manager_id, roles_id) VALUES (?,?,?,?)`;
   const params = [
     body.first_name,
     body.last_name,
-    body.industry_connected,
-    body.party_id
+    body.manager_id,
+    body.roles_id
   ];
 
   db.query(sql, params, (err, result) => {
@@ -78,7 +78,7 @@ router.post('/employees', ({ body }, res) => {
   });
 });
 
-// Update a employees department
+// Update an employees' department
 router.put('/employees/:id', (req, res) => {
   const errors = inputCheck(req.body, 'departments_id');
   if (errors) {
@@ -95,7 +95,7 @@ router.put('/employees/:id', (req, res) => {
       res.status(400).json({ error: err.message });
     } else if (!result.affectedRows) {
       res.json({
-        message: 'employees not found'
+        message: 'Employee not found'
       });
     } else {
       res.json({
@@ -107,7 +107,7 @@ router.put('/employees/:id', (req, res) => {
   });
 });
 
-// Delete a employees
+// Delete an employee
 router.delete('/employees/:id', (req, res) => {
   const sql = `DELETE FROM employees WHERE id = ?`;
   const params = [req.params.id];
@@ -117,7 +117,7 @@ router.delete('/employees/:id', (req, res) => {
       res.status(400).json({ error: res.message });
     } else if (!result.affectedRows) {
       res.json({
-        message: 'employees not found'
+        message: 'Employee not found'
       });
     } else {
       res.json({
