@@ -1,16 +1,16 @@
-# EmployeeTracker
+# My Company's Employee Tracker
 
 ## Description
 
-This application allows a company to keep track of their employees using SQL.  No challenges were faced in creating this application and I would not like to make any changes to it in the future.
+This application allows a company to keep track of their employees and manage their departments and roles using MySQL.  No challenges were faced in creating this application and I would not like to make any changes to it in the future.
 
 ## Installation
 
-To use this application, one must first install SQL, then they can follow along using this live link: 
+To use this application, one must first install MySQL.  They can then follow along using this link: 
 
 ## Usage
 
-One can use this application to keep track of their employees.
+One can use this application to keep track of their employees; departments, and roles.
 
 ## Credits
 
