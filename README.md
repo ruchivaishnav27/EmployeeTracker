@@ -6,7 +6,7 @@ This application allows a company to keep track of their employees and manage th
 
 ## Installation
 
-To use this application, one must first install MySQL.  They can then follow along using this link: 
+To use this application, one must first install MySQL.  
 
 ## Usage
 
